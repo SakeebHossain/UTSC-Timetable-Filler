@@ -16,12 +16,6 @@ class MeetingSection:
         self.start = "Undefined!"
         self.end = "Undefined!"
 
-def print_course(course):
-    print(course.code, course.name)
-    for session in course.meeting_sections:
-        print(session.section, session.day, session.start, session.end)
-        print('----------------------')
-
 def write_to_file(course_list):
     # Write out everything except the meeting sections
     file = open('directory.txt', 'w')
@@ -44,17 +38,21 @@ def write_file_to_json(course_list):
         file_contents += "'meeting_sections': ["
         
         for meeting in course.meeting_sections:
-            file_contents += "{"
-            file_contents += "'day': '" + str(meeting.day) + "',"
-            file_contents += "'start': '" + str(meeting.start) + "'"
-            if meeting == course.meeting_sections[-1]:
-                file_contents += "}]"
+            if course.code == 'FSGA01H3S' or course.code == 'FSGA01H3F':
+                break
+            if not('LEC' in str(meeting.section)) and str(meeting.section) != 'None':
+                pass                
             else:
+                file_contents += "{"
+                file_contents += "'day': '" + str(meeting.day) + "',"
+                file_contents += "'start': '" + str(meeting.start) + "'"
                 file_contents += "},"
         
-        file_contents += "},"
-    # Remove the last comma
-    print(file_contents[-1])
+        # Remove last comma
+        if file_contents[-1] == ',':
+            file_contents = file_contents[:-1]
+        file_contents += "]},"
+    # Remove the last comma again
     file_contents = file_contents[:-1]
     file_contents += "]}"
     file.write(file_contents)
