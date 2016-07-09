@@ -16,6 +16,12 @@ class MeetingSection:
         self.start = "Undefined!"
         self.end = "Undefined!"
 
+def print_course(course):
+    print(course.code, course.name)
+    for session in course.meeting_sections:
+        print(session.section, session.day, session.start, session.end)
+        print('----------------------')
+
 def write_to_file(course_list):
     # Write out everything except the meeting sections
     file = open('directory.txt', 'w')
@@ -34,6 +40,7 @@ def write_file_to_json(course_list):
     for course in course_list:
         file_contents += "{"
         file_contents += "'code': '" + str(course.code) + "',"
+        file_contents += "'link': '" + str(course.link) + "',"
         file_contents += "'breadth_req': '" + str(course.breadth_req) + "',"
         file_contents += "'meeting_sections': ["
         
