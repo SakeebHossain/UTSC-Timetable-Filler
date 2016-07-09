@@ -1,2 +1,2 @@
 # UTSC-Timetable-Filler
-Finds courses based on user specifications.
+A webscraper that finds courses at UTSC based on day of the week, start time, semester, year, and breadth requirement. Scrapes from http://www.utsc.utoronto.ca/~registrar/scheduling/timetable.
