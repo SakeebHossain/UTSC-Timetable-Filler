@@ -35,23 +35,28 @@ def write_to_file(course_list):
             
 def write_file_to_json(course_list):
     file = open("directory.json", "w")
-    file.write("{'UTSC_COURSES': [")
+    file_contents = ""
+    file_contents += "{'UTSC_COURSES': ["
     for course in course_list:
-        file.write("{")
-        file.write("'code': '" + str(course.code) + "',")
-        file.write("'breadth_req': '" + str(course.breadth_req) + "',")
-        file.write("'meeting_sections': [")
+        file_contents += "{"
+        file_contents += "'code': '" + str(course.code) + "',"
+        file_contents += "'breadth_req': '" + str(course.breadth_req) + "',"
+        file_contents += "'meeting_sections': ["
         
         for meeting in course.meeting_sections:
-            file.write("{")
-            file.write("'day': '" + str(meeting.day) + "',")
-            file.write("'start': '" + str(meeting.start) + "'")
+            file_contents += "{"
+            file_contents += "'day': '" + str(meeting.day) + "',"
+            file_contents += "'start': '" + str(meeting.start) + "'"
             if meeting == course.meeting_sections[-1]:
-                file.write("}]")
+                file_contents += "}]"
             else:
-                file.write("},")
+                file_contents += "},"
         
-        file.write("},")
-    file.write("}")
+        file_contents += "},"
+    # Remove the last comma
+    print(file_contents[-1])
+    file_contents = file_contents[:-1]
+    file_contents += "]}"
+    file.write(file_contents)
     
         
